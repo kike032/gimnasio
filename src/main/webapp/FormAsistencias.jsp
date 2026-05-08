@@ -13,7 +13,11 @@
     </head>
     <body>
         <center>
-         <h1>Estamos en la consulta de Asistencias</h1>
+         <h1>Estamos en la consulta de Asistencmjjjhggias</h1>
+    </center>
+        <center>
+         <h1>Estamos en la consulta de Asistencmjjjhggias</h1>
     </center>
     </body>
+    
 </html>
