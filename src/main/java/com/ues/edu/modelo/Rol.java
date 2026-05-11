@@ -35,4 +35,11 @@ public class Rol {
 
     @OneToMany(mappedBy = "rol", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
+    
+    
+     public Rol(Integer idRol, String nombreRol, String descripcion) {
+        this.idRol = idRol;
+        this.nombreRol = nombreRol;
+        this.descripcion = descripcion;
+    }
 }

@@ -4,30 +4,32 @@
  */
 package com.ues.edu.util;
 
-/**
- *
- * @author kikej
- */
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalTime;
+/**
+ *
+ * @author kikej
+ */
 
-public class LocalDateAdapter extends TypeAdapter<LocalDate> {
+
+
+public class LocalTimeAdapter extends TypeAdapter<LocalTime> {
 
     @Override
-    public void write(JsonWriter out, LocalDate fecha) throws IOException {
-        if (fecha == null) {
+    public void write(JsonWriter out, LocalTime value) throws IOException {
+        if (value == null) {
             out.nullValue();
         } else {
-            out.value(fecha.toString());
+            out.value(value.toString());
         }
     }
 
     @Override
-    public LocalDate read(JsonReader in) throws IOException {
-        String fecha = in.nextString();
-        return LocalDate.parse(fecha);
+    public LocalTime read(JsonReader in) throws IOException {
+        String value = in.nextString();
+        return LocalTime.parse(value);
     }
 }
