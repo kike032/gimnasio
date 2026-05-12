@@ -1,8 +1,6 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
+/*
+ * alumno.js — Gestión de Alumnos
  */
-
 
 function cargarAlumnos() {
     fetch("AlumnoServlet")
@@ -30,10 +28,10 @@ function pintarTabla(lista) {
             <td>${alumno.idAlumno}</td>
             <td>${alumno.nombre}</td>
             <td>${alumno.apellido}</td>
-            <td>${alumno.telefono}</td>
-            <td>${alumno.direccion}</td>
-            <td>${alumno.fechaRegistro}</td>
-            <td>${alumno.estado}</td>
+            <td>${alumno.telefono ?? ""}</td>
+            <td>${alumno.direccion ?? ""}</td>
+            <td>${alumno.fechaRegistro ?? ""}</td>
+            <td>${alumno.estado ?? ""}</td>
         </tr>`;
     });
 
@@ -43,4 +41,3 @@ function pintarTabla(lista) {
 }
 
 cargarAlumnos();
-

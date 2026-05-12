@@ -9,11 +9,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Gestión de Inscripciones</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+              rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     </head>
-    <body>
-        <center>
-         <h1>Estamos en la consulta de Incripciones</h1>
-    </center>
+
+    <body class="container mt-4">
+
+        <h2>Gestión de Inscripciones</h2>
+
+        <h3>Lista de Inscripciones</h3>
+
+        <div id="listaInscripciones"></div>
+
+        <script src="${pageContext.request.contextPath}/js/inscripcion.js?v=1"></script>
     </body>
 </html>

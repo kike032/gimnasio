@@ -65,4 +65,6 @@ public class Alumno {
 
     @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
     private List<Asistencia> asistencias;
+    
+    
 }

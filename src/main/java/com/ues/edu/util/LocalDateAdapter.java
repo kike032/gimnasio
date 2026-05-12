@@ -4,15 +4,19 @@
  */
 package com.ues.edu.util;
 
-/**
- *
- * @author kikej
- */
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+
+/**
+ *
+ * @author kikej
+ */
+
+
+
 
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
