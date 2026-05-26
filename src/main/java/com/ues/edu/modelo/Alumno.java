@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
  * @author kikej
  */
 
-
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -54,8 +52,8 @@ public class Alumno {
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
-    @Column(name = "estado", length = 20)
-    private String estado;
+    @Column(name = "estado", nullable = false)
+    private boolean estado = true;
 
     @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
     private List<Inscripcion> inscripciones;
@@ -65,6 +63,4 @@ public class Alumno {
 
     @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
     private List<Asistencia> asistencias;
-    
-    
 }

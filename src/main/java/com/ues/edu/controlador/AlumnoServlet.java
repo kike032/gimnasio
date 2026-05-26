@@ -68,37 +68,43 @@ public class AlumnoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          response.setContentType("application/json");
+ 
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        Gson gson = new GsonBuilder().create();
-
-        List<Alumno> lista = service.listar();
-
-        List<Map<String, Object>> alumnosJson = new ArrayList<>();
-
-        for (Alumno a : lista) {
-            Map<String, Object> item = new HashMap<>();
-
-            item.put("idAlumno", a.getIdAlumno());
-            item.put("nombre", a.getNombre());
-            item.put("apellido", a.getApellido());
-            item.put("telefono", a.getTelefono());
-            item.put("direccion", a.getDireccion());
-
-            if (a.getFechaRegistro() != null) {
-                item.put("fechaRegistro", a.getFechaRegistro().toString());
-            } else {
-                item.put("fechaRegistro", "");
+ 
+        try {
+            Gson gson = new GsonBuilder().create();
+            List<Alumno> lista = service.listar();
+            List<Map<String, Object>> alumnosJson = new ArrayList<>();
+ 
+            for (Alumno a : lista) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("idAlumno",  a.getIdAlumno());
+                item.put("nombre",    a.getNombre());
+                item.put("apellido",  a.getApellido());
+                item.put("telefono",  a.getTelefono());
+                item.put("direccion", a.getDireccion());
+                item.put("fechaRegistro",
+                        a.getFechaRegistro() != null
+                                ? a.getFechaRegistro().toString()
+                                : "");
+                // ✅ estado es boolean: true = activo, false = inactivo
+                item.put("estado", a.isEstado());
+ 
+                // ⚠️ NO hagas a.getUsuario() aquí → LazyInitializationException
+                alumnosJson.add(item);
             }
-
-            item.put("estado", a.getEstado());
-
-            alumnosJson.add(item);
+ 
+            response.getWriter().print(gson.toJson(alumnosJson));
+ 
+        } catch (Exception e) {
+            // Devuelve el error en JSON para verlo en la consola del navegador
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().print("{\"error\": \"" + e.getMessage() + "\"}");
+            e.printStackTrace();
         }
-
-        response.getWriter().print(gson.toJson(alumnosJson));
     }
+ 
 
     /**
      * Handles the HTTP <code>POST</code> method.

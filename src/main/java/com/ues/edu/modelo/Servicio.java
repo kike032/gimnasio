@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
  * @author kikej
  */
 
-
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -42,8 +40,8 @@ public class Servicio {
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
-    @Column(name = "estado", length = 20)
-    private String estado;
+    @Column(name = "estado", nullable = false)
+    private boolean estado = true;
 
     @OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY)
     private List<Inscripcion> inscripciones;

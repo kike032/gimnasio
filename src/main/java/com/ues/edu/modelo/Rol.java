@@ -33,13 +33,9 @@ public class Rol {
     @Column(name = "descripcion", length = 150)
     private String descripcion;
 
+    @Column(name = "estado", nullable = false)
+    private boolean estado = true;
+
     @OneToMany(mappedBy = "rol", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
-    
-    
-     public Rol(Integer idRol, String nombreRol, String descripcion) {
-        this.idRol = idRol;
-        this.nombreRol = nombreRol;
-        this.descripcion = descripcion;
-    }
 }

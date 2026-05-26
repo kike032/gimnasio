@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
  * @author kikej
  */
 
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -38,7 +39,7 @@ public class Usuario {
     private String nombre;
 
     @NotBlank(message = "El correo no puede estar vacío")
-    @Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", message = "Formato de correo ivalido")
+    @Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", message = "Formato de correo inválido")
     @Column(name = "correo", nullable = false, length = 100, unique = true)
     private String correo;
 
@@ -46,8 +47,8 @@ public class Usuario {
     @Column(name = "clave", nullable = false, length = 255)
     private String clave;
 
-    @Column(name = "estado", length = 20)
-    private String estado;
+    @Column(name = "estado", nullable = false)
+    private boolean estado = true;
 
     @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private Alumno alumno;

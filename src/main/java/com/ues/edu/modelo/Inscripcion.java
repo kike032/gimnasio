@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
  *
  * @author kikej
  */
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -40,8 +39,8 @@ public class Inscripcion {
     @Column(name = "fecha_inscripcion")
     private LocalDate fechaInscripcion;
 
-    @Column(name = "estado", length = 30)
-    private String estado;
+    @Column(name = "estado", nullable = false)
+    private boolean estado = true;
 
     @OneToMany(mappedBy = "inscripcion", fetch = FetchType.LAZY)
     private List<Pago> pagos;

@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
  * @author kikej
  */
 
-
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -48,8 +46,8 @@ public class Pago {
     @Column(name = "metodo_pago", length = 50)
     private String metodoPago;
 
-    @Column(name = "estado_pago", length = 30)
-    private String estadoPago;
+    @Column(name = "estado_pago", nullable = false)
+    private boolean estadoPago = false;
 
     @OneToOne(mappedBy = "pago", fetch = FetchType.LAZY)
     private Comprobante comprobante;

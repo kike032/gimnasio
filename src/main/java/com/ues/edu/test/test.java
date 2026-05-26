@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 public class test {
 
     public static void main(String[] args) {
@@ -33,82 +34,89 @@ public class test {
             Rol r1 = new Rol();
             r1.setNombreRol("Administrador");
             r1.setDescripcion("Acceso total al sistema");
+            r1.setEstado(true);
             em.persist(r1);
 
             Rol r2 = new Rol();
             r2.setNombreRol("Recepcionista");
             r2.setDescripcion("Gestión de alumnos e inscripciones");
+            r2.setEstado(true);
             em.persist(r2);
 
             Rol r3 = new Rol();
             r3.setNombreRol("Entrenador");
             r3.setDescripcion("Registro de asistencias y atenciones");
+            r3.setEstado(true);
             em.persist(r3);
 
             Rol r4 = new Rol();
             r4.setNombreRol("Cajero");
             r4.setDescripcion("Gestión de pagos y comprobantes");
+            r4.setEstado(true);
             em.persist(r4);
 
             Rol r5 = new Rol();
             r5.setNombreRol("Supervisor");
             r5.setDescripcion("Revisión de reportes y estadísticas");
+            r5.setEstado(true);
             em.persist(r5);
 
             Rol r6 = new Rol();
             r6.setNombreRol("Visitante");
             r6.setDescripcion("Acceso de solo lectura");
+            r6.setEstado(true);
             em.persist(r6);
 
             // ── SERVICIOS ────────────────────────────────────────────────────
             Servicio s1 = new Servicio();
             s1.setNombreServicio("Membresía Mensual");
             s1.setDescripcion("Acceso ilimitado al gimnasio por un mes");
-            s1.setEstado("AC");
+            s1.setEstado(true);          // true = ACTIVO
             s1.setPrecio(new BigDecimal("25.00"));
             em.persist(s1);
 
             Servicio s2 = new Servicio();
             s2.setNombreServicio("Membresía Trimestral");
             s2.setDescripcion("Acceso ilimitado por tres meses");
-            s2.setEstado("AC");
+            s2.setEstado(true);
             s2.setPrecio(new BigDecimal("65.00"));
             em.persist(s2);
 
             Servicio s3 = new Servicio();
             s3.setNombreServicio("Clase de Spinning");
             s3.setDescripcion("Sesión grupal de ciclismo indoor 60 min");
-            s3.setEstado("AC");
+            s3.setEstado(true);
             s3.setPrecio(new BigDecimal("8.00"));
             em.persist(s3);
 
             Servicio s4 = new Servicio();
             s4.setNombreServicio("Entrenamiento Personal");
             s4.setDescripcion("Sesión individualizada con entrenador");
-            s4.setEstado("AC");
+            s4.setEstado(true);
             s4.setPrecio(new BigDecimal("20.00"));
             em.persist(s4);
 
             Servicio s5 = new Servicio();
             s5.setNombreServicio("Clase de Yoga");
             s5.setDescripcion("Sesión de yoga y relajación 45 min");
-            s5.setEstado("AC");
+            s5.setEstado(true);
             s5.setPrecio(new BigDecimal("7.00"));
             em.persist(s5);
 
             Servicio s6 = new Servicio();
             s6.setNombreServicio("Sauna y Spa");
             s6.setDescripcion("Acceso a sauna, jacuzzi y área de relajación");
-            s6.setEstado("AC");
+            s6.setEstado(true);
             s6.setPrecio(new BigDecimal("12.00"));
             em.persist(s6);
+            
 
             // ── USUARIOS ─────────────────────────────────────────────────────
             Usuario u1 = new Usuario();
             u1.setNombre("Carlos Monterrosa");
             u1.setCorreo("admin@gimnasio.com");
             u1.setClave("clave123");
-            u1.setEstado("AC");
+            u1.setEstado(true);          // true = ACTIVO
             u1.setRol(r1);
             em.persist(u1);
 
@@ -116,7 +124,7 @@ public class test {
             u2.setNombre("María López");
             u2.setCorreo("recep@gimnasio.com");
             u2.setClave("clave123");
-            u2.setEstado("AC");
+            u2.setEstado(true);
             u2.setRol(r2);
             em.persist(u2);
 
@@ -124,7 +132,7 @@ public class test {
             u3.setNombre("José Hernández");
             u3.setCorreo("entrenador@gimnasio.com");
             u3.setClave("clave123");
-            u3.setEstado("AC");
+            u3.setEstado(true);
             u3.setRol(r3);
             em.persist(u3);
 
@@ -132,7 +140,7 @@ public class test {
             u4.setNombre("Ana Martínez");
             u4.setCorreo("cajero@gimnasio.com");
             u4.setClave("clave123");
-            u4.setEstado("AC");
+            u4.setEstado(true);
             u4.setRol(r4);
             em.persist(u4);
 
@@ -140,7 +148,7 @@ public class test {
             u5.setNombre("Roberto Flores");
             u5.setCorreo("supervisor@gimnasio.com");
             u5.setClave("clave123");
-            u5.setEstado("AC");
+            u5.setEstado(true);
             u5.setRol(r5);
             em.persist(u5);
 
@@ -148,7 +156,7 @@ public class test {
             u6.setNombre("Laura Rodríguez");
             u6.setCorreo("visita@gimnasio.com");
             u6.setClave("clave123");
-            u6.setEstado("IN");
+            u6.setEstado(false);         // false = INACTIVO
             u6.setRol(r6);
             em.persist(u6);
 
@@ -158,7 +166,7 @@ public class test {
             a1.setApellido("Pérez");
             a1.setTelefono("7001-1234");
             a1.setDireccion("Col. Escalón, San Salvador");
-            a1.setEstado("AC");
+            a1.setEstado(true);
             a1.setFechaRegistro(LocalDate.of(2024, 1, 10));
             a1.setUsuario(u1);
             em.persist(a1);
@@ -168,7 +176,7 @@ public class test {
             a2.setApellido("García");
             a2.setTelefono("7002-2345");
             a2.setDireccion("Res. Santa Elena, Antiguo Cuscatlán");
-            a2.setEstado("AC");
+            a2.setEstado(true);
             a2.setFechaRegistro(LocalDate.of(2024, 2, 15));
             a2.setUsuario(u2);
             em.persist(a2);
@@ -178,7 +186,7 @@ public class test {
             a3.setApellido("Ramírez");
             a3.setTelefono("7003-3456");
             a3.setDireccion("Col. Miramonte, San Salvador");
-            a3.setEstado("AC");
+            a3.setEstado(true);
             a3.setFechaRegistro(LocalDate.of(2024, 3, 20));
             a3.setUsuario(u3);
             em.persist(a3);
@@ -188,7 +196,7 @@ public class test {
             a4.setApellido("Morales");
             a4.setTelefono("7004-4567");
             a4.setDireccion("Ciudad Merliot, La Libertad");
-            a4.setEstado("AC");
+            a4.setEstado(true);
             a4.setFechaRegistro(LocalDate.of(2024, 4, 5));
             a4.setUsuario(u4);
             em.persist(a4);
@@ -198,7 +206,7 @@ public class test {
             a5.setApellido("Torres");
             a5.setTelefono("7005-5678");
             a5.setDireccion("Col. San Benito, San Salvador");
-            a5.setEstado("IN");
+            a5.setEstado(false);         // false = INACTIVO
             a5.setFechaRegistro(LocalDate.of(2024, 5, 1));
             a5.setUsuario(u5);
             em.persist(a5);
@@ -208,49 +216,49 @@ public class test {
             a6.setApellido("Vásquez");
             a6.setTelefono("7006-6789");
             a6.setDireccion("Soyapango, San Salvador");
-            a6.setEstado("AC");
+            a6.setEstado(true);
             a6.setFechaRegistro(LocalDate.of(2024, 6, 18));
             a6.setUsuario(u6);
             em.persist(a6);
 
             // ── INSCRIPCIONES ────────────────────────────────────────────────
             Inscripcion i1 = new Inscripcion();
-            i1.setEstado("AC");
+            i1.setEstado(true);
             i1.setFechaInscripcion(LocalDate.of(2024, 1, 11));
             i1.setAlumno(a1);
             i1.setServicio(s1);
             em.persist(i1);
 
             Inscripcion i2 = new Inscripcion();
-            i2.setEstado("AC");
+            i2.setEstado(true);
             i2.setFechaInscripcion(LocalDate.of(2024, 2, 16));
             i2.setAlumno(a2);
             i2.setServicio(s2);
             em.persist(i2);
 
             Inscripcion i3 = new Inscripcion();
-            i3.setEstado("AC");
+            i3.setEstado(true);
             i3.setFechaInscripcion(LocalDate.of(2024, 3, 21));
             i3.setAlumno(a3);
             i3.setServicio(s3);
             em.persist(i3);
 
             Inscripcion i4 = new Inscripcion();
-            i4.setEstado("AC");
+            i4.setEstado(true);
             i4.setFechaInscripcion(LocalDate.of(2024, 4, 6));
             i4.setAlumno(a4);
             i4.setServicio(s1);
             em.persist(i4);
 
             Inscripcion i5 = new Inscripcion();
-            i5.setEstado("IN");
+            i5.setEstado(false);         // false = INACTIVA
             i5.setFechaInscripcion(LocalDate.of(2024, 5, 2));
             i5.setAlumno(a5);
             i5.setServicio(s4);
             em.persist(i5);
 
             Inscripcion i6 = new Inscripcion();
-            i6.setEstado("AC");
+            i6.setEstado(true);
             i6.setFechaInscripcion(LocalDate.of(2024, 6, 19));
             i6.setAlumno(a6);
             i6.setServicio(s2);
@@ -258,56 +266,50 @@ public class test {
 
             // ── PAGOS ────────────────────────────────────────────────────────
             Pago pg1 = new Pago();
-            pg1.setEstadoPago("PA");
+            pg1.setEstadoPago(true);     // true = PAGADO
             pg1.setFechaPago(LocalDate.of(2024, 1, 11));
             pg1.setMetodoPago("Efectivo");
             pg1.setMonto(new BigDecimal("25.00"));
-        
             pg1.setInscripcion(i1);
             em.persist(pg1);
 
             Pago pg2 = new Pago();
-            pg2.setEstadoPago("PA");
+            pg2.setEstadoPago(true);
             pg2.setFechaPago(LocalDate.of(2024, 2, 16));
             pg2.setMetodoPago("Tarjeta");
             pg2.setMonto(new BigDecimal("65.00"));
-         
             pg2.setInscripcion(i2);
             em.persist(pg2);
 
             Pago pg3 = new Pago();
-            pg3.setEstadoPago("PA");
+            pg3.setEstadoPago(true);
             pg3.setFechaPago(LocalDate.of(2024, 3, 21));
             pg3.setMetodoPago("Transferencia");
             pg3.setMonto(new BigDecimal("8.00"));
-            
             pg3.setInscripcion(i3);
             em.persist(pg3);
 
             Pago pg4 = new Pago();
-            pg4.setEstadoPago("PA");
+            pg4.setEstadoPago(true);
             pg4.setFechaPago(LocalDate.of(2024, 4, 6));
             pg4.setMetodoPago("Efectivo");
             pg4.setMonto(new BigDecimal("25.00"));
-            
             pg4.setInscripcion(i4);
             em.persist(pg4);
 
             Pago pg5 = new Pago();
-            pg5.setEstadoPago("PE");
+            pg5.setEstadoPago(false);    // false = PENDIENTE
             pg5.setFechaPago(LocalDate.of(2024, 5, 2));
             pg5.setMetodoPago("Tarjeta");
             pg5.setMonto(new BigDecimal("20.00"));
-          
             pg5.setInscripcion(i5);
             em.persist(pg5);
 
             Pago pg6 = new Pago();
-            pg6.setEstadoPago("PA");
+            pg6.setEstadoPago(true);
             pg6.setFechaPago(LocalDate.of(2024, 6, 19));
             pg6.setMetodoPago("Efectivo");
             pg6.setMonto(new BigDecimal("7.00"));
-            
             pg6.setInscripcion(i6);
             em.persist(pg6);
 

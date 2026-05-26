@@ -67,35 +67,37 @@ public class ServicioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+ 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        Gson gson = new GsonBuilder().create();
-
-        List<Servicio> lista = service.listar();
-
-        List<Map<String, Object>> serviciosJson = new ArrayList<>();
-
-        for (Servicio s : lista) {
-            Map<String, Object> item = new HashMap<>();
-
-            item.put("idServicio", s.getIdServicio());
-            item.put("nombreServicio", s.getNombreServicio());
-            item.put("descripcion", s.getDescripcion());
-
-            if (s.getPrecio() != null) {
-                item.put("precio", s.getPrecio().toString());
-            } else {
-                item.put("precio", "");
+ 
+        try {
+            Gson gson = new GsonBuilder().create();
+            List<Servicio> lista = service.listar();
+            List<Map<String, Object>> serviciosJson = new ArrayList<>();
+ 
+            for (Servicio s : lista) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("idServicio",     s.getIdServicio());
+                item.put("nombreServicio", s.getNombreServicio());
+                item.put("descripcion",    s.getDescripcion());
+                item.put("precio",
+                        s.getPrecio() != null
+                                ? s.getPrecio().toString()
+                                : "");
+                // ✅ boolean → isEstado() en lugar de getEstado()
+                item.put("estado", s.isEstado());
+ 
+                serviciosJson.add(item);
             }
-
-            item.put("estado", s.getEstado());
-
-            serviciosJson.add(item);
+ 
+            response.getWriter().print(gson.toJson(serviciosJson));
+ 
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().print("{\"error\": \"" + e.getMessage() + "\"}");
+            e.printStackTrace();
         }
-
-        response.getWriter().print(gson.toJson(serviciosJson));
-
     }
 
     /**
