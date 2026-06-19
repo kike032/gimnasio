@@ -4,16 +4,16 @@
  */
 package com.ues.edu.Dao;
 
-/**
- *
- * @author kikej
- */
-
 import com.ues.edu.modelo.Alumno;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
+
+/**
+ *
+ * @author kikej
+ */
 
 public class AlumnoDao {
 
@@ -28,5 +28,25 @@ public class AlumnoDao {
         em.close();
 
         return lista;
+    }
+
+    public void guardar(Alumno alumno) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(alumno);
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+
+            throw e;
+
+        } finally {
+            em.close();
+        }
     }
 }

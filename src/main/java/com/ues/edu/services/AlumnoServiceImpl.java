@@ -12,12 +12,15 @@ import java.util.List;
  * @author kikej
  */
 
-
 public class AlumnoServiceImpl {
 
     private AlumnoDao dao = new AlumnoDao();
 
     public List<Alumno> listar() {
         return dao.listar();
+    }
+
+    public void guardar(Alumno alumno) {
+        dao.guardar(alumno);
     }
 }

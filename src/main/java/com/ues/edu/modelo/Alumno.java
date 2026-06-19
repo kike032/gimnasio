@@ -6,7 +6,6 @@ package com.ues.edu.modelo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
@@ -29,9 +28,8 @@ public class Alumno {
     @Column(name = "id_alumno")
     private Integer idAlumno;
 
-    @NotNull(message = "El usuario no puede ser nulo")
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false, unique = true)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @NotBlank(message = "El nombre no puede estar vacío")

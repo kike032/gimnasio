@@ -590,3 +590,271 @@ body {
 .login-btn:hover { background: #e0b300; }
 .login-btn:active { transform: scale(.98); }
 .login-btn i { font-size: 15px; }
+
+
+/* Ajustes para que el modal use los colores de IronCore */
+.modal-backdrop {
+    background-color: #000;
+}
+.modal-backdrop.show {
+    opacity: 0.7;
+}
+.modal-content {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+/* Reutilizamos los estilos de login-label y login-input-wrap que ya tienes */
+.modal-body .login-label {
+    margin-top: 10px;
+}
+.modal-body .login-input-wrap {
+    background: rgba(255,255,255,0.02);
+}
+
+/* Sombra y desenfoque para el fondo del modal */
+.modal-backdrop {
+    background-color: #000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-backdrop.show {
+    opacity: 0.8;
+}
+
+/* Evitar que los inputs del modal se peguen al borde */
+#modalAlumno .login-input-wrap input {
+    width: 100%;
+}
+
+/* Efecto hover suave para el modal content */
+.modal-content {
+    transition: transform 0.3s ease-out;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Estilo del botón de cerrar modal */
+.btn-close-white {
+    filter: invert(1) grayscale(1) brightness(2);
+    opacity: 0.5;
+}
+.btn-close-white:hover {
+    opacity: 1;
+}
+
+.section-toggle {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-toggle div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submenu {
+  overflow: hidden;
+  max-height: 600px;
+  transition: max-height 0.3s ease;
+}
+
+.submenu.closed {
+  max-height: 0;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotate {
+  transform: rotate(-90deg);
+}
+
+/* ═══════════════════════════════════════
+   FORMULARIOS — IronCore
+═══════════════════════════════════════ */
+
+.form-card {
+  width: 100%;
+  max-width: 900px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-card-header h3 {
+  color: var(--text-white);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.form-card-header p {
+  color: var(--text-dim);
+  font-size: 12px;
+  margin: 0;
+}
+
+.form-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(245,196,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-icon i {
+  font-size: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-group-ic {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group-ic.full {
+  grid-column: span 2;
+}
+
+.form-group-ic label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.input-ic {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 0 13px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.input-ic:focus-within {
+  border-color: rgba(245,196,0,0.38);
+  background: rgba(255,255,255,0.045);
+}
+
+.input-ic i {
+  font-size: 17px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.input-ic input,
+.input-ic select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ddd;
+  font-size: 13px;
+  padding: 12px 0;
+  font-family: inherit;
+}
+
+.input-ic input::placeholder {
+  color: #333;
+}
+
+.input-ic select option {
+  background: #111;
+  color: #ddd;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 800px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group-ic.full {
+    grid-column: span 1;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn-ic {
+    justify-content: center;
+  }
+}
+
+/* ═══════════════════════════════════════
+   ADVERTENCIAS DE FORMULARIO
+═══════════════════════════════════════ */
+
+.alerta-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 18px;
+  border: 1px solid transparent;
+}
+
+.alerta-form i {
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.alerta-error {
+  background: var(--red-dim);
+  border-color: rgba(192,68,68,0.35);
+  color: var(--red);
+}
+
+.alerta-exito {
+  background: var(--green-dim);
+  border-color: rgba(61,158,96,0.35);
+  color: var(--green);
+}
+
+.input-error {
+  border-color: rgba(192,68,68,0.55) !important;
+  background: rgba(192,68,68,0.08) !important;
+}
+
+.input-error i {
+  color: var(--red) !important;
+}
