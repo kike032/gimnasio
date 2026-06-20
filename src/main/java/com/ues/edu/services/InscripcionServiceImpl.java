@@ -1,17 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ues.edu.services;
 
 import com.ues.edu.Dao.InscripcionDao;
+import com.ues.edu.modelo.Inscripcion;
 import java.util.List;
-
-
-/**
- *
- * @author kikej
- */
 
 public class InscripcionServiceImpl {
 
@@ -19,5 +10,17 @@ public class InscripcionServiceImpl {
 
     public List<Object[]> listar() {
         return dao.listar();
+    }
+
+    public boolean guardar(Inscripcion inscripcion, Integer idAlumno, Integer idServicio) {
+        return dao.guardar(inscripcion, idAlumno, idServicio);
+    }
+
+    public boolean modificar(Inscripcion inscripcion, Integer idAlumno, Integer idServicio) {
+        return dao.modificar(inscripcion, idAlumno, idServicio);
+    }
+
+    public boolean eliminar(Integer idInscripcion) {
+        return dao.eliminar(idInscripcion);
     }
 }

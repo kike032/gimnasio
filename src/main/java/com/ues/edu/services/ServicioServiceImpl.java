@@ -20,4 +20,16 @@ public class ServicioServiceImpl {
     public List<Servicio> listar() {
         return dao.listar();
     }
+
+    public void guardar(Servicio servicio) {
+        dao.guardar(servicio);
+    }
+
+    public void actualizar(Servicio servicio) {
+        dao.actualizar(servicio);
+    }
+
+    public void eliminar(int idServicio) {
+        dao.eliminar(idServicio);
+    }
 }

@@ -47,7 +47,7 @@
       <span class="link-label">Atenciones</span>
     </a>
 
-    <a href="${pageContext.request.contextPath}/FormServicios.jsp"
+    <a href="${pageContext.request.contextPath}/servicios.jsp"
        class="nav-link-item <%= "servicios".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-category"></i>
       <span class="link-label">Servicios</span>
@@ -101,7 +101,7 @@
       <span class="link-label">Agregar Inscripción</span>
     </a>
 
-    <a href="${pageContext.request.contextPath}/AgregarServicio.jsp"
+    <a href="${pageContext.request.contextPath}/servicios.jsp"
        class="nav-link-item <%= "agregarServicio".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-category-plus"></i>
       <span class="link-label">Agregar Servicio</span>

@@ -21,7 +21,7 @@ import java.util.Map;
 @WebServlet(name = "AlumnoServlet", urlPatterns = {"/AlumnoServlet"})
 public class AlumnoServlet extends HttpServlet {
 
-    private AlumnoServiceImpl service = new AlumnoServiceImpl();
+    private final AlumnoServiceImpl service = new AlumnoServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -113,6 +113,83 @@ public class AlumnoServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             escribirMensaje(response, "Error al guardar alumno: " + limpiarMensaje(e));
             e.printStackTrace();
+        }
+
+    }
+    
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        try {
+            JsonObject json = JsonParser.parseReader(request.getReader()).getAsJsonObject();
+
+            if (!json.has("idAlumno") || json.get("idAlumno").isJsonNull()) {
+                escribirMensaje(response, "ID del alumno requerido");
+                return;
+            }
+
+            int id = json.get("idAlumno").getAsInt();
+
+            Alumno alumno = new Alumno();
+            alumno.setIdAlumno(id);
+            alumno.setNombre(obtenerTexto(json, "nombre"));
+            alumno.setApellido(obtenerTexto(json, "apellido"));
+            alumno.setTelefono(obtenerTexto(json, "telefono"));
+            alumno.setDireccion(obtenerTexto(json, "direccion"));
+            alumno.setEstado(json.has("estado") && !json.get("estado").isJsonNull()
+                    ? json.get("estado").getAsBoolean() : true);
+
+            if (json.has("fechaRegistro") && !json.get("fechaRegistro").isJsonNull()
+                    && !json.get("fechaRegistro").getAsString().isEmpty()) {
+                alumno.setFechaRegistro(LocalDate.parse(json.get("fechaRegistro").getAsString()));
+            } else {
+                alumno.setFechaRegistro(LocalDate.now());
+            }
+
+            alumno.setUsuario(null);
+
+            String error = validarAlumno(alumno);
+            if (error != null) { escribirMensaje(response, error); return; }
+
+            service.actualizar(alumno);
+            escribirMensaje(response, "Alumno actualizado correctamente");
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            escribirMensaje(response, "Error al actualizar alumno: " + limpiarMensaje(e));
+        }
+
+    }
+
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        try {
+            String idParam = request.getParameter("idAlumno");
+
+            if (idParam == null || idParam.trim().isEmpty()) {
+                escribirMensaje(response, "ID del alumno requerido");
+                return;
+            }
+
+            int id = Integer.parseInt(idParam);
+            service.eliminar(id);
+            escribirMensaje(response, "Alumno eliminado correctamente");
+
+        } catch (NumberFormatException e) {
+            escribirMensaje(response, "ID inválido");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            escribirMensaje(response, "Error al eliminar alumno: " + limpiarMensaje(e));
         }
     }
 
