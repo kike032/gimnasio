@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ues.edu.modelo;
 
 import jakarta.persistence.*;
@@ -9,13 +5,8 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-/**
- *
- * @author kikej
- */
 
 @Data
 @NoArgsConstructor
@@ -42,10 +33,4 @@ public class Servicio {
 
     @Column(name = "estado", nullable = false)
     private boolean estado = true;
-
-    @OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY)
-    private List<Inscripcion> inscripciones;
-
-    @OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY)
-    private List<Asistencia> asistencias;
 }

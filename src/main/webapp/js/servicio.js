@@ -1,13 +1,113 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
+let editandoServicio = false;
 
+$(document).ready(function () {
+    console.log("servicio.js cargado correctamente");
 
+    cargarServicios();
 
-$("#formServicio").on("submit", function (e) {
-    e.preventDefault();
+    $("#formServicio").on("submit", function (e) {
+        e.preventDefault();
+        guardarServicio();
+    });
 
+    $("#formServicio").on("reset", function () {
+        setTimeout(function () {
+            limpiarFormularioServicio();
+            ocultarMensajeServicio();
+            limpiarErroresServicio();
+        }, 50);
+    });
+});
+
+function cargarServicios() {
+    fetch(window.APP_CONTEXT + "/ServicioServlet")
+        .then(res => res.json())
+        .then(data => {
+            console.log("Servicios recibidos:", data);
+
+            if (Array.isArray(data)) {
+                pintarTablaServicios(data);
+            } else {
+                $("#listaServicios").html(`
+                    <div class="text-center p-3 text-danger">
+                        ${data.mensaje ?? "Error al cargar servicios"}
+                    </div>
+                `);
+            }
+        })
+        .catch(error => {
+            console.error("Error al cargar servicios:", error);
+
+            $("#listaServicios").html(`
+                <div class="text-center p-3 text-danger">
+                    Error al cargar servicios.
+                </div>
+            `);
+        });
+}
+
+function pintarTablaServicios(lista) {
+    let tabla = `
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del servicio</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    if (lista.length === 0) {
+        tabla += `
+            <tr>
+                <td colspan="6" class="text-center">
+                    No hay servicios registrados.
+                </td>
+            </tr>
+        `;
+    } else {
+        lista.forEach(servicio => {
+            let objetoServicio = JSON.stringify(servicio).replace(/'/g, "&#39;");
+
+            tabla += `
+                <tr>
+                    <td>${servicio.idServicio}</td>
+                    <td>${servicio.nombreServicio}</td>
+                    <td>${servicio.descripcion ?? ""}</td>
+                    <td>$${servicio.precio}</td>
+                    <td>
+                        <span class="badge ${servicio.estado ? "bg-success" : "bg-danger"}">
+                            ${servicio.estado ? "Activo" : "Inactivo"}
+                        </span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm" onclick='editarServicio(${objetoServicio})'>
+                            <i class="ti ti-edit"></i> Editar
+                        </button>
+
+                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarServicio(${servicio.idServicio})">
+                            <i class="ti ti-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    tabla += `
+            </tbody>
+        </table>
+    `;
+
+    $("#listaServicios").html(tabla);
+}
+
+function guardarServicio() {
     ocultarMensajeServicio();
     limpiarErroresServicio();
 
@@ -22,8 +122,15 @@ $("#formServicio").on("submit", function (e) {
         estado: $("#estado").val() === "true"
     };
 
+    let metodo = "POST";
+
+    if (editandoServicio) {
+        servicio.idServicio = parseInt($("#idServicio").val());
+        metodo = "PUT";
+    }
+
     fetch(window.APP_CONTEXT + "/ServicioServlet", {
-        method: "POST",
+        method: metodo,
         headers: {
             "Content-Type": "application/json"
         },
@@ -31,28 +138,67 @@ $("#formServicio").on("submit", function (e) {
     })
     .then(res => res.json())
     .then(data => {
-
-        if (data.mensaje === "Servicio guardado correctamente") {
+        if (
+            data.mensaje === "Servicio guardado correctamente" ||
+            data.mensaje === "Servicio actualizado correctamente"
+        ) {
             mostrarExitoServicio(data.mensaje);
-            $("#formServicio")[0].reset();
-            limpiarErroresServicio();
+            limpiarFormularioServicio();
+            cargarServicios();
         } else {
             mostrarFracasoServicio(data.mensaje);
         }
-
     })
     .catch(error => {
-        console.error("Error:", error);
-        mostrarFracasoServicio("Ocurrió un error al guardar el servicio");
+        console.error("Error al guardar:", error);
+        mostrarFracasoServicio("Error al guardar servicio.");
     });
-});
+}
 
-    tabla += "</table>";
+function editarServicio(servicio) {
+    editandoServicio = true;
 
-// ── validaciones  ─────────
+    $("#idServicio").val(servicio.idServicio);
+    $("#nombreServicio").val(servicio.nombreServicio);
+    $("#descripcion").val(servicio.descripcion ?? "");
+    $("#precio").val(servicio.precio);
+    $("#estado").val(servicio.estado ? "true" : "false");
+
+    $("#btnGuardarServicio").html(`
+        <i class="ti ti-device-floppy"></i>
+        Actualizar servicio
+    `);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function eliminarServicio(idServicio) {
+    if (!confirm("¿Estás seguro de eliminar este servicio?")) {
+        return;
+    }
+
+    fetch(window.APP_CONTEXT + "/ServicioServlet?idServicio=" + idServicio, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.mensaje === "Servicio eliminado correctamente") {
+            mostrarExitoServicio(data.mensaje);
+            cargarServicios();
+        } else {
+            mostrarFracasoServicio(data.mensaje);
+        }
+    })
+    .catch(error => {
+        console.error("Error al eliminar:", error);
+        mostrarFracasoServicio("Error al eliminar servicio.");
+    });
+}
 
 function condicionesServicio() {
-
     let nombreServicio = $("#nombreServicio").val().trim();
     let descripcion = $("#descripcion").val().trim();
     let precio = $("#precio").val().trim();
@@ -92,8 +238,20 @@ function condicionesServicio() {
     return true;
 }
 
+function limpiarFormularioServicio() {
+    editandoServicio = false;
 
+    $("#idServicio").val("");
+    $("#nombreServicio").val("");
+    $("#descripcion").val("");
+    $("#precio").val("");
+    $("#estado").val("true");
 
+    $("#btnGuardarServicio").html(`
+        <i class="ti ti-device-floppy"></i>
+        Guardar servicio
+    `);
+}
 
 function mostrarExitoServicio(mensaje) {
     $("#alertaServicio")
@@ -118,9 +276,6 @@ function ocultarMensajeServicio() {
     $("#mensajeAlertaServicio").text("");
 }
 
-
-
-
 function marcarErrorServicio(campo) {
     $(campo).closest(".input-ic").addClass("input-error");
 }
@@ -128,13 +283,3 @@ function marcarErrorServicio(campo) {
 function limpiarErroresServicio() {
     $(".input-ic").removeClass("input-error");
 }
-
-
-
-
-$("#formServicio").on("reset", function () {
-    setTimeout(function () {
-        ocultarMensajeServicio();
-        limpiarErroresServicio();
-    }, 50);
-});

@@ -6,25 +6,28 @@
 
     <persistence-unit name="proyecto" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        
-        <class>com.uesedu.entities.Paciente</class>
-        <!-- Añade aquí el resto de tus entidades -->
+
+        <class>com.ues.edu.modelo.Servicio</class>
+        <class>com.ues.edu.modelo.Alumno</class>
+        <class>com.ues.edu.modelo.Inscripcion</class>
+        <class>com.ues.edu.modelo.Asistencia</class>
+        <class>com.ues.edu.modelo.Atencion</class>
+        <class>com.ues.edu.modelo.Comprobante</class>
+        <class>com.ues.edu.modelo.Pago</class>
+        <class>com.ues.edu.modelo.Rol</class>
+        <class>com.ues.edu.modelo.Usuario</class>
 
         <properties>
-<<<<<<< HEAD
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Gimnasio2026"/>
-=======
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/proyecto"/>
->>>>>>> origin/master
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/gimnasio"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="root"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            
-            <!-- Propiedades de Hibernate -->
+
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
         </properties>
     </persistence-unit>
+
 </persistence>

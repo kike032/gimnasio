@@ -47,8 +47,8 @@
       <span class="link-label">Atenciones</span>
     </a>
 
-    <a href="${pageContext.request.contextPath}/servicios.jsp"
-       class="nav-link-item <%= "servicios".equals(activePage) ? "active" : "" %>">
+   <a href="${pageContext.request.contextPath}/FormServicios.jsp"
+   class="nav-link-item <%= "servicios".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-category"></i>
       <span class="link-label">Servicios</span>
     </a>
@@ -100,12 +100,11 @@
       <i class="ti ti-clipboard-plus"></i>
       <span class="link-label">Agregar Inscripción</span>
     </a>
-
-    <a href="${pageContext.request.contextPath}/servicios.jsp"
-       class="nav-link-item <%= "agregarServicio".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-category-plus"></i>
-      <span class="link-label">Agregar Servicio</span>
-    </a>
+<a href="${pageContext.request.contextPath}/FormServicios.jsp"
+   class="nav-link-item <%= "agregarServicio".equals(activePage) ? "active" : "" %>">
+  <i class="ti ti-category"></i>
+  <span class="link-label">Servicios</span>
+</a>
 
     <a href="${pageContext.request.contextPath}/AgregarPago.jsp"
        class="nav-link-item <%= "agregarPago".equals(activePage) ? "active" : "" %>">

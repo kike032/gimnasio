@@ -24,7 +24,7 @@ public class ServicioDao {
      * en tu archivo persistence.xml
      */
     private static final EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("ProyectoGimnasioPU");
+            Persistence.createEntityManagerFactory("proyecto");
 
     public List<Servicio> listar() {
         EntityManager em = emf.createEntityManager();

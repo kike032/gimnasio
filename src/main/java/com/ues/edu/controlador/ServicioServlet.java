@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.ues.edu.controlador;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.ues.edu.modelo.Servicio;
 import com.ues.edu.services.ServicioServiceImpl;
 import jakarta.servlet.ServletException;
@@ -21,15 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author kikej
- */
 @WebServlet(name = "ServicioServlet", urlPatterns = {"/ServicioServlet"})
 public class ServicioServlet extends HttpServlet {
 
-       private ServicioServiceImpl service = new ServicioServiceImpl();
-       private Gson gson = new Gson();
+    private ServicioServiceImpl service = new ServicioServiceImpl();
+    private Gson gson = new Gson();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,11 +60,8 @@ public class ServicioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
- 
-         try {
+        
+        try {
             List<Servicio> servicios = service.listar();
 
             List<Map<String, Object>> lista = new ArrayList<>();
@@ -85,28 +73,23 @@ public class ServicioServlet extends HttpServlet {
                 item.put("descripcion", s.getDescripcion());
                 item.put("precio", s.getPrecio());
                 item.put("estado", s.isEstado());
+
                 lista.add(item);
             }
 
             responderJson(response, lista);
 
         } catch (Exception e) {
+            e.printStackTrace();
             responderMensaje(response, "Error al listar servicios: " + e.getMessage());
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
+        
+        try {
             Servicio servicio = gson.fromJson(request.getReader(), Servicio.class);
 
             String validacion = validarServicio(servicio);
@@ -120,19 +103,19 @@ public class ServicioServlet extends HttpServlet {
             responderMensaje(response, "Servicio guardado correctamente");
 
         } catch (Exception e) {
+            e.printStackTrace();
             responderMensaje(response, "Error al guardar servicio: " + e.getMessage());
         }
     }
-    
-    
-      @Override
+
+    @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
             Servicio servicio = gson.fromJson(request.getReader(), Servicio.class);
 
-            if (servicio.getIdServicio() == null) {
+            if (servicio == null || servicio.getIdServicio() == null) {
                 responderMensaje(response, "El ID del servicio es obligatorio");
                 return;
             }
@@ -148,13 +131,12 @@ public class ServicioServlet extends HttpServlet {
             responderMensaje(response, "Servicio actualizado correctamente");
 
         } catch (Exception e) {
+            e.printStackTrace();
             responderMensaje(response, "Error al actualizar servicio: " + e.getMessage());
         }
     }
 
-    
-    
-     @Override
+    @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -170,11 +152,13 @@ public class ServicioServlet extends HttpServlet {
             responderMensaje(response, "Servicio eliminado correctamente");
 
         } catch (Exception e) {
+            e.printStackTrace();
             responderMensaje(response, "Error al eliminar servicio: " + e.getMessage());
         }
     }
 
     private String validarServicio(Servicio servicio) {
+
         if (servicio == null) {
             return "Los datos del servicio son obligatorios";
         }
@@ -199,25 +183,10 @@ public class ServicioServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(gson.toJson(data));
     }
-    
-    
-    private void responderMensaje(HttpServletResponse response, String mensaje) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
 
+    private void responderMensaje(HttpServletResponse response, String mensaje) throws IOException {
         Map<String, String> respuesta = new HashMap<>();
         respuesta.put("mensaje", mensaje);
-
-        response.getWriter().write(gson.toJson(respuesta));
+        responderJson(response, respuesta);
     }
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
