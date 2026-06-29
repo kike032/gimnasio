@@ -23,6 +23,7 @@
   </div>
 
   <div class="nav-items submenu" id="menuConsultas">
+
     <a href="${pageContext.request.contextPath}/FormAlumnos.jsp"
        class="nav-link-item <%= "alumnos".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-user-heart"></i>
@@ -47,8 +48,8 @@
       <span class="link-label">Atenciones</span>
     </a>
 
-   <a href="${pageContext.request.contextPath}/FormServicios.jsp"
-   class="nav-link-item <%= "servicios".equals(activePage) ? "active" : "" %>">
+    <a href="${pageContext.request.contextPath}/FormServicios.jsp"
+       class="nav-link-item <%= "servicios".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-category"></i>
       <span class="link-label">Servicios</span>
     </a>
@@ -76,6 +77,7 @@
       <i class="ti ti-shield-check"></i>
       <span class="link-label">Roles</span>
     </a>
+
   </div>
 
 
@@ -89,6 +91,7 @@
   </div>
 
   <div class="nav-items submenu" id="menuAgregar">
+
     <a href="${pageContext.request.contextPath}/AgregarAlumno.jsp"
        class="nav-link-item <%= "agregarAlumno".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-user-plus"></i>
@@ -100,11 +103,12 @@
       <i class="ti ti-clipboard-plus"></i>
       <span class="link-label">Agregar Inscripción</span>
     </a>
-<a href="${pageContext.request.contextPath}/FormServicios.jsp"
-   class="nav-link-item <%= "agregarServicio".equals(activePage) ? "active" : "" %>">
-  <i class="ti ti-category"></i>
-  <span class="link-label">Servicios</span>
-</a>
+
+    <a href="${pageContext.request.contextPath}/FormServicios.jsp"
+       class="nav-link-item <%= "servicios".equals(activePage) || "agregarServicio".equals(activePage) ? "active" : "" %>">
+      <i class="ti ti-category-plus"></i>
+      <span class="link-label">Agregar Servicio</span>
+    </a>
 
     <a href="${pageContext.request.contextPath}/AgregarPago.jsp"
        class="nav-link-item <%= "agregarPago".equals(activePage) ? "active" : "" %>">
@@ -112,11 +116,18 @@
       <span class="link-label">Agregar Pago</span>
     </a>
 
-    <a href="${pageContext.request.contextPath}/AgregarUsuario.jsp"
-       class="nav-link-item <%= "agregarUsuario".equals(activePage) ? "active" : "" %>">
+    <a href="${pageContext.request.contextPath}/FormUsuarios.jsp"
+       class="nav-link-item <%= "usuarios".equals(activePage) || "agregarUsuario".equals(activePage) ? "active" : "" %>">
       <i class="ti ti-user-cog"></i>
       <span class="link-label">Agregar Usuario</span>
     </a>
+
+    <a href="${pageContext.request.contextPath}/FormRol.jsp"
+       class="nav-link-item <%= "roles".equals(activePage) || "agregarRol".equals(activePage) ? "active" : "" %>">
+      <i class="ti ti-shield-plus"></i>
+      <span class="link-label">Agregar Rol</span>
+    </a>
+
   </div>
 
 

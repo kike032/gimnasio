@@ -57,11 +57,7 @@
           </div>
         </div>
 
-        <!-- Aviso fijo -->
-        <div class="alerta-form alerta-exito">
-          <i class="ti ti-info-circle"></i>
-          <span>El ID del servicio se genera automáticamente al guardar.</span>
-        </div>
+        
 
         <!-- Mensajes dinámicos -->
         <div id="alertaServicio" class="alerta-form" style="display:none;">
