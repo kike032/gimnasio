@@ -80,57 +80,6 @@
 
   </div>
 
-
-  <!-- SECCIÓN AGREGAR -->
-  <div class="nav-section-label section-toggle" onclick="toggleMenu('menuAgregar', this)">
-    <div>
-      <i class="ti ti-circle-plus"></i>
-      <span>Agregar</span>
-    </div>
-    <i class="ti ti-chevron-down arrow"></i>
-  </div>
-
-  <div class="nav-items submenu" id="menuAgregar">
-
-    <a href="${pageContext.request.contextPath}/AgregarAlumno.jsp"
-       class="nav-link-item <%= "agregarAlumno".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-user-plus"></i>
-      <span class="link-label">Agregar Alumno</span>
-    </a>
-
-    <a href="${pageContext.request.contextPath}/AgregarInscripcion.jsp"
-       class="nav-link-item <%= "agregarInscripcion".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-clipboard-plus"></i>
-      <span class="link-label">Agregar Inscripción</span>
-    </a>
-
-    <a href="${pageContext.request.contextPath}/FormServicios.jsp"
-       class="nav-link-item <%= "servicios".equals(activePage) || "agregarServicio".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-category-plus"></i>
-      <span class="link-label">Agregar Servicio</span>
-    </a>
-
-    <a href="${pageContext.request.contextPath}/AgregarPago.jsp"
-       class="nav-link-item <%= "agregarPago".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-cash"></i>
-      <span class="link-label">Agregar Pago</span>
-    </a>
-
-    <a href="${pageContext.request.contextPath}/FormUsuarios.jsp"
-       class="nav-link-item <%= "usuarios".equals(activePage) || "agregarUsuario".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-user-cog"></i>
-      <span class="link-label">Agregar Usuario</span>
-    </a>
-
-    <a href="${pageContext.request.contextPath}/FormRol.jsp"
-       class="nav-link-item <%= "roles".equals(activePage) || "agregarRol".equals(activePage) ? "active" : "" %>">
-      <i class="ti ti-shield-plus"></i>
-      <span class="link-label">Agregar Rol</span>
-    </a>
-
-  </div>
-
-
   <div class="sidebar-footer">
     <div class="user-area">
       <div class="user-ava">AD</div>

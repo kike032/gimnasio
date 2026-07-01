@@ -16,41 +16,29 @@ import java.util.List;
  */
 
 public class AlumnoDao {
-
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("proyecto");
-
     public List<Alumno> listar() {
         EntityManager em = emf.createEntityManager();
-
         List<Alumno> lista = em.createQuery("SELECT a FROM Alumno a", Alumno.class)
                 .getResultList();
-
         em.close();
-
         return lista;
     }
-
     public void guardar(Alumno alumno) {
         EntityManager em = emf.createEntityManager();
-
         try {
             em.getTransaction().begin();
             em.persist(alumno);
             em.getTransaction().commit();
-
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-
             throw e;
-
         } finally {
             em.close();
         }
     }
-
-
     public void actualizar(Alumno alumno) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -66,7 +54,6 @@ public class AlumnoDao {
             em.close();
         }
     }
-
     public void eliminar(int id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -85,5 +72,4 @@ public class AlumnoDao {
             em.close();
         }
     }
-
 }

@@ -3,16 +3,14 @@
     Created on : 24 may 2026, 22:31:00
     Author     : kikej
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% request.setAttribute("activePage", "alumnos"); %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IronCore — Asistencias</title>
+  <title>IronCore — Alumnos</title>
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
@@ -63,13 +61,7 @@
       <div id="listaAlumnos" class="lista-tabla"></div>
       <div class="pagination-bar">
         <span class="pag-info" id="paginaInfo">Mostrando alumnos</span>
-        <div class="pag-btns">
-          <button class="pag-btn"><i class="ti ti-chevron-left"></i></button>
-          <button class="pag-btn active">1</button>
-          <button class="pag-btn">2</button>
-          <button class="pag-btn">3</button>
-          <button class="pag-btn"><i class="ti ti-chevron-right"></i></button>
-        </div>
+        <div class="pag-btns"></div>
       </div>
     </div>
   </div>

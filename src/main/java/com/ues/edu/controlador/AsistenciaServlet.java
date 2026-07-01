@@ -1,159 +1,149 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.ues.edu.controlador;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ues.edu.modelo.Alumno;
+import com.google.gson.reflect.TypeToken;
 import com.ues.edu.modelo.Asistencia;
-import com.ues.edu.modelo.Rol;
-import com.ues.edu.services.AlumnoServiceImpl;
 import com.ues.edu.services.AsistenciaServiceImpl;
-import com.ues.edu.services.RolServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- *
- * @author kikej
- */
 @WebServlet(name = "AsistenciaServlet", urlPatterns = {"/AsistenciaServlet"})
 public class AsistenciaServlet extends HttpServlet {
 
-    
     private AsistenciaServiceImpl service = new AsistenciaServiceImpl();
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AsistenciaServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AsistenciaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    private Gson gson = new GsonBuilder().create();
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("application/json");
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Gson gson = new GsonBuilder().create();
+        List<Object[]> lista = service.listar();
+        List<Map<String, Object>> jsonList = new ArrayList<>();
 
-        List<Asistencia> lista = service.listar();
-
-        List<Map<String, Object>> asistenciasJson = new ArrayList<>();
-
-        for (Asistencia a : lista) {
+        for (Object[] fila : lista) {
             Map<String, Object> item = new HashMap<>();
+            item.put("idAsistencia", fila[0]);
+            String nombre = fila[1] != null ? fila[1].toString() : "";
+            String apellido = fila[2] != null ? fila[2].toString() : "";
+            item.put("alumno", nombre + " " + apellido);
+            item.put("servicio", fila[3]);
+            item.put("pago", "Ref. Pago #" + fila[4]);
+            item.put("fechaAsistencia", fila[5] != null ? fila[5].toString() : "");
+            item.put("horaEntrada", fila[6] != null ? fila[6].toString() : "");
+            item.put("horaSalida", fila[7] != null ? fila[7].toString() : "");
+            
+            item.put("idAlumno", fila[8]);
+            item.put("idServicio", fila[9]);
+            item.put("idPago", fila[10]);
 
-            item.put("idAsistencia", a.getIdAsistencia());
-
-            if (a.getAlumno() != null) {
-                item.put("idAlumno", a.getAlumno().getIdAlumno());
-                item.put("alumno", a.getAlumno().getNombre() + " " + a.getAlumno().getApellido());
-            } else {
-                item.put("idAlumno", "");
-                item.put("alumno", "");
-            }
-
-            if (a.getServicio() != null) {
-                item.put("idServicio", a.getServicio().getIdServicio());
-            } else {
-                item.put("idServicio", "");
-            }
-
-            if (a.getPago() != null) {
-                item.put("idPago", a.getPago().getIdPago());
-            } else {
-                item.put("idPago", "");
-            }
-
-            if (a.getFechaAsistencia() != null) {
-                item.put("fechaAsistencia", a.getFechaAsistencia().toString());
-            } else {
-                item.put("fechaAsistencia", "");
-            }
-
-            if (a.getHoraEntrada() != null) {
-                item.put("horaEntrada", a.getHoraEntrada().toString());
-            } else {
-                item.put("horaEntrada", "");
-            }
-
-            if (a.getHoraSalida() != null) {
-                item.put("horaSalida", a.getHoraSalida().toString());
-            } else {
-                item.put("horaSalida", "");
-            }
-
-            asistenciasJson.add(item);
+            jsonList.add(item);
         }
-
-        response.getWriter().print(gson.toJson(asistenciasJson));
+        response.getWriter().print(gson.toJson(jsonList));
     }
-        
-      
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        Map<String, Object> respuesta = new HashMap<>();
+
+        try {
+            BufferedReader reader = request.getReader();
+            Type type = new TypeToken<Map<String, Object>>(){}.getType();
+            Map<String, Object> datos = gson.fromJson(reader, type);
+
+            Integer idAlumno = ((Double) datos.get("idAlumno")).intValue();
+            Integer idServicio = ((Double) datos.get("idServicio")).intValue();
+            Integer idPago = ((Double) datos.get("idPago")).intValue();
+            
+            String horaEntradaStr = (String) datos.get("horaEntrada");
+            String horaSalidaStr = (String) datos.get("horaSalida");
+
+            Asistencia nueva = new Asistencia();
+            nueva.setFechaAsistencia(LocalDate.now()); // Automatizado a la fecha de hoy
+            nueva.setHoraEntrada(horaEntradaStr != null && !horaEntradaStr.isEmpty() ? LocalTime.parse(horaEntradaStr) : LocalTime.now());
+            if (horaSalidaStr != null && !horaSalidaStr.isEmpty()) {
+                nueva.setHoraSalida(LocalTime.parse(horaSalidaStr));
+            }
+
+            boolean exito = service.guardar(nueva, idAlumno, idServicio, idPago);
+            respuesta.put("mensaje", exito ? "Asistencia guardada correctamente" : "No se pudo guardar la asistencia.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.put("mensaje", "Error interno: " + e.getMessage());
+        }
+        response.getWriter().print(gson.toJson(respuesta));
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        Map<String, Object> respuesta = new HashMap<>();
 
+        try {
+            BufferedReader reader = request.getReader();
+            Type type = new TypeToken<Map<String, Object>>(){}.getType();
+            Map<String, Object> datos = gson.fromJson(reader, type);
+
+            Integer idAsistencia = ((Double) datos.get("idAsistencia")).intValue();
+            Integer idAlumno = ((Double) datos.get("idAlumno")).intValue();
+            Integer idServicio = ((Double) datos.get("idServicio")).intValue();
+            Integer idPago = ((Double) datos.get("idPago")).intValue();
+            String fechaStr = (String) datos.get("fechaAsistencia");
+            String horaEntradaStr = (String) datos.get("horaEntrada");
+            String horaSalidaStr = (String) datos.get("horaSalida");
+
+            Asistencia editada = new Asistencia();
+            editada.setIdAsistencia(idAsistencia);
+            editada.setFechaAsistencia(fechaStr != null ? LocalDate.parse(fechaStr) : LocalDate.now());
+            if (horaEntradaStr != null) editada.setHoraEntrada(LocalTime.parse(horaEntradaStr));
+            if (horaSalidaStr != null && !horaSalidaStr.isEmpty()) editada.setHoraSalida(LocalTime.parse(horaSalidaStr));
+
+            boolean exito = service.modificar(editada, idAlumno, idServicio, idPago);
+            respuesta.put("mensaje", exito ? "Asistencia actualizada correctamente" : "No se pudo actualizar la asistencia.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.put("mensaje", "Error al editar: " + e.getMessage());
+        }
+        response.getWriter().print(gson.toJson(respuesta));
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        Map<String, Object> respuesta = new HashMap<>();
+
+        String idParam = request.getParameter("idAsistencia");
+        if (idParam != null) {
+            try {
+                boolean exito = service.eliminar(Integer.parseInt(idParam));
+                respuesta.put("mensaje", exito ? "Asistencia eliminada correctamente" : "No se pudo eliminar.");
+            } catch (Exception e) {
+                respuesta.put("mensaje", "ID inválido");
+            }
+        } else {
+            respuesta.put("mensaje", "Falta el parámetro idAsistencia");
+        }
+        response.getWriter().print(gson.toJson(respuesta));
+    }
 }

@@ -21,7 +21,7 @@ import java.util.Map;
 @WebServlet(name = "AlumnoServlet", urlPatterns = {"/AlumnoServlet"})
 public class AlumnoServlet extends HttpServlet {
 
-    private final AlumnoServiceImpl service = new AlumnoServiceImpl();
+    private AlumnoServiceImpl service = new AlumnoServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -70,10 +70,6 @@ public class AlumnoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
-            /*
-             * No usamos gson.fromJson(request.getReader(), Alumno.class)
-             * porque la entidad Alumno tiene relaciones con clases que usan LocalTime.
-             */
             JsonObject json = JsonParser.parseReader(request.getReader()).getAsJsonObject();
 
             Alumno alumno = new Alumno();
@@ -96,11 +92,6 @@ public class AlumnoServlet extends HttpServlet {
                 return;
             }
 
-            /*
-             * idAlumno automático.
-             * fechaRegistro automática.
-             * usuario null porque no quieres pedir id_usuario en el formulario.
-             */
             alumno.setIdAlumno(null);
             alumno.setFechaRegistro(LocalDate.now());
             alumno.setUsuario(null);
@@ -114,9 +105,8 @@ public class AlumnoServlet extends HttpServlet {
             escribirMensaje(response, "Error al guardar alumno: " + limpiarMensaje(e));
             e.printStackTrace();
         }
-
     }
-    
+
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -162,9 +152,7 @@ public class AlumnoServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             escribirMensaje(response, "Error al actualizar alumno: " + limpiarMensaje(e));
         }
-
     }
-
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
@@ -197,7 +185,6 @@ public class AlumnoServlet extends HttpServlet {
         if (!json.has(campo) || json.get(campo).isJsonNull()) {
             return "";
         }
-
         return json.get(campo).getAsString().trim();
     }
 

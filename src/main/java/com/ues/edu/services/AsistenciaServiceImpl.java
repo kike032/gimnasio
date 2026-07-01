@@ -13,12 +13,23 @@ import java.util.List;
  * @author kikej
  */
 
-
 public class AsistenciaServiceImpl {
 
     private AsistenciaDao dao = new AsistenciaDao();
 
-    public List<Asistencia> listar() {
+    public List<Object[]> listar() {
         return dao.listar();
+    }
+
+    public boolean guardar(Asistencia asistencia, Integer idAlumno, Integer idServicio, Integer idPago) {
+        return dao.guardar(asistencia, idAlumno, idServicio, idPago);
+    }
+
+    public boolean modificar(Asistencia asistencia, Integer idAlumno, Integer idServicio, Integer idPago) {
+        return dao.modificar(asistencia, idAlumno, idServicio, idPago);
+    }
+
+    public boolean eliminar(Integer idAsistencia) {
+        return dao.eliminar(idAsistencia);
     }
 }

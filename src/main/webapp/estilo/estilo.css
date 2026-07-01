@@ -586,7 +586,6 @@ body {
 .login-btn i { font-size: 15px; }
 
 
-<<<<<<< HEAD
 /* Ajustes para que el modal use los colores de IronCore */
 .modal-backdrop {
     background-color: #000;
@@ -853,7 +852,6 @@ body {
 .input-error i {
   color: var(--red) !important;
 }
-=======
 /* ═══════════════════════════════════════
    MODAL
 ═══════════════════════════════════════ */
@@ -1088,4 +1086,3 @@ body {
       overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
->>>>>>> origin/master
